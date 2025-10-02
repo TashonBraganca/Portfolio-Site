@@ -89,20 +89,19 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
   const iconDistance = 120 + (scrollProgress * 40) // Icons move farther as you scroll
 
   return (
-    <section className="relative min-h-[60vh] flex items-center justify-center py-12" ref={brainRef} style={{ overflow: 'visible' }}>
-      <div className="container mx-auto px-6" style={{ overflow: 'visible' }}>
-        <div className="flex items-center justify-center" style={{ overflow: 'visible' }}>
+    <section className="relative min-h-[60vh] flex items-center justify-center py-12 overflow-visible" ref={brainRef}>
+      <div className="container mx-auto px-6 overflow-visible">
+        <div className="flex items-center justify-center overflow-visible">
 
           {/* Centered Brain Visual - 15% Smaller */}
-          <div className="relative flex items-center justify-center" style={{ width: '500px', height: '500px', overflow: 'visible' }}>
+          <div className="relative flex items-center justify-center overflow-visible" style={{ width: '600px', height: '600px', minWidth: '600px', minHeight: '600px' }}>
             <div
-              className="relative flex items-center justify-center"
+              className="relative flex items-center justify-center overflow-visible"
               style={{
                 width: '340px',
                 height: '340px',
                 opacity: brainOpacity,
-                transform: `scale(${brainScale * 0.85})`,
-                overflow: 'visible'
+                transform: `scale(${brainScale * 0.85})`
               }}
             >
               {/* Central Brain - Stationary with Flickering */}
@@ -187,15 +186,18 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
               
               {/* Orbiting Icons - Fixed Circular Motion */}
               <div
-                className="absolute gpu-accelerated"
+                className="absolute gpu-accelerated overflow-visible"
                 style={{
-                  width: '100%',
-                  height: '100%',
+                  width: '600px',
+                  height: '600px',
                   transform: `rotate(${iconsRotation}deg)`,
                   transformOrigin: 'center center',
                   opacity: iconsOpacity,
-                  left: 0,
-                  top: 0
+                  left: '50%',
+                  top: '50%',
+                  marginLeft: '-300px',
+                  marginTop: '-300px',
+                  pointerEvents: 'none'
                 }}
               >
                 {AI_ML_ICONS.map(({ Icon, label, color }, index) => {
@@ -213,7 +215,8 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
                         top: '50%',
                         transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${-iconsRotation}deg)`,
                         backgroundColor: `${color}15`,
-                        border: `1px solid ${color}30`
+                        border: `1px solid ${color}30`,
+                        pointerEvents: 'auto'
                       }}
                       title={label}
                     >

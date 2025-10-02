@@ -27,7 +27,7 @@ export function DynamicShowcase({
   }, [])
 
   return (
-    <section className="relative py-8" ref={sectionRef}>
+    <section className="relative py-8 overflow-visible" ref={sectionRef}>
       {/* Floating Ecosystem */}
       <FloatingEcosystem />
 
