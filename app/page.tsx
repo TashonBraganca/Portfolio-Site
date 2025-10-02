@@ -11,7 +11,6 @@ import { Resume } from '@/app/components/resume'
 import { Contact } from '@/app/components/contact'
 import { ASCIIEffects } from '@/app/components/ascii-effects'
 import { DynamicShowcase } from '@/app/components/dynamic-showcase'
-import { ScrollBrain } from '@/app/components/scroll-brain'
 
 export default function HomePage() {
   const scrollToSkills = () => {
@@ -28,14 +27,11 @@ export default function HomePage() {
 
       <Hero />
 
-      {/* Brain Animation Section */}
-      <ScrollBrain />
-
       {/* Dynamic Showcase with Floating Ecosystem */}
       <DynamicShowcase
         title="Technology Stack"
         subtitle="Built with modern tools"
-        description="Every project uses carefully selected technologies that work together seamlessly. Explore the ecosystem of frameworks, libraries, and tools that power modern development."
+        description="Explore the ecosystem of frameworks, libraries, and tools that power modern development."
         onExploreClick={scrollToSkills}
       />
 

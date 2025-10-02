@@ -288,9 +288,10 @@ export function FloatingEcosystem() {
   }
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-20 overflow-hidden"
+      className="fixed inset-0 pointer-events-none z-20"
+      style={{ overflow: 'visible' }}
     >
       {cards.map((card) => {
         const distance = getCardDistance(card)
@@ -304,8 +305,8 @@ export function FloatingEcosystem() {
             key={card.id}
             className="absolute pointer-events-auto cursor-pointer gpu-accelerated"
             style={{
-              left: card.x,
-              top: card.y,
+              left: Math.max(20, Math.min(window.innerWidth - 220, card.x)),
+              top: Math.max(20, Math.min(window.innerHeight - 100, card.y)),
               transform: `
                 perspective(1000px)
                 rotateX(${card.rotation.x + (isNear ? -5 : 0)}deg)
@@ -319,33 +320,33 @@ export function FloatingEcosystem() {
               zIndex: Math.floor(100 - card.z)
             }}
           >
-            <div 
-              className="glass-effect rounded-xl p-4 min-w-[200px] group transition-all duration-300 ease-out"
+            <div
+              className="glass-strong rounded-xl p-4 min-w-[200px] max-w-[220px] group transition-all duration-300 ease-out"
               style={{
-                boxShadow: isNear 
-                  ? '0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25)'
-                  : '0 6px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+                boxShadow: isNear
+                  ? '0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                  : '0 6px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
                 transform: isNear ? 'translateY(-2px)' : 'translateY(0)'
               }}
             >
               <div className="flex items-center space-x-3">
-                <div 
-                  className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300"
-                  style={{ 
-                    backgroundColor: `${card.color}20`,
-                    border: `1px solid ${card.color}40`,
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300"
+                  style={{
+                    backgroundColor: `${card.color}25`,
+                    border: `1px solid ${card.color}50`,
                     color: card.color
                   }}
                 >
-                  <card.icon 
+                  <card.icon
                     className="w-5 h-5 transition-colors duration-300"
                   />
                 </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground group-hover:text-white transition-colors">
+                <div className="overflow-hidden">
+                  <h3 className="text-sm font-semibold text-foreground group-hover:text-white transition-colors truncate">
                     {card.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-muted-foreground truncate">
                     {card.subtitle}
                   </p>
                 </div>
@@ -355,11 +356,11 @@ export function FloatingEcosystem() {
             {/* Connection lines (if card is near mouse) */}
             {isNear && (
               <div
-                className="absolute top-1/2 left-1/2 w-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                className="absolute top-1/2 left-1/2 w-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"
                 style={{
                   height: distance,
                   transform: `
-                    translate(-50%, -50%) 
+                    translate(-50%, -50%)
                     rotate(${Math.atan2(mousePos.y - card.y, mousePos.x - card.x)}rad)
                   `,
                   transformOrigin: '0 50%'
@@ -369,18 +370,6 @@ export function FloatingEcosystem() {
           </div>
         )
       })}
-
-      {/* Mouse indicator */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          left: mousePos.x - 4,
-          top: mousePos.y - 4,
-          transform: 'translate(-50%, -50%)'
-        }}
-      >
-        <div className="w-2 h-2 bg-white/40 rounded-full animate-pulse" />
-      </div>
     </div>
   )
 }
