@@ -5,46 +5,46 @@
 :root {
   --background: 222 14% 8%;
   --foreground: 210 40% 98%;
-  --muted: 217 32% 17%;
-  --muted-foreground: 215 20% 65%;
-  --popover: 222 14% 8%;
+  --muted: 217 32% 20%;
+  --muted-foreground: 215 20% 70%;
+  --popover: 222 14% 10%;
   --popover-foreground: 210 40% 98%;
-  --border: 217 32% 17%;
-  --input: 217 32% 17%;
-  --card: 222 14% 8%;
+  --border: 217 32% 20%;
+  --input: 217 32% 20%;
+  --card: 222 14% 10%;
   --card-foreground: 210 40% 98%;
   --primary: 210 40% 98%;
   --primary-foreground: 222 14% 8%;
-  --secondary: 217 32% 17%;
+  --secondary: 217 32% 20%;
   --secondary-foreground: 210 40% 98%;
-  --accent: 217 32% 17%;
+  --accent: 217 91% 60%;
   --accent-foreground: 210 40% 98%;
   --destructive: 0 62% 30%;
   --destructive-foreground: 210 40% 98%;
-  --ring: 217 32% 17%;
+  --ring: 217 32% 20%;
   --radius: 0.5rem;
 }
 
 .light {
   --background: 0 0% 100%;
-  --foreground: 222 14% 8%;
+  --foreground: 222 14% 10%;
   --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
+  --muted-foreground: 215 16% 40%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 14% 8%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --card: 0 0% 100%;
-  --card-foreground: 222 14% 8%;
-  --primary: 222 14% 8%;
+  --popover-foreground: 222 14% 10%;
+  --border: 214 32% 85%;
+  --input: 214 32% 85%;
+  --card: 0 0% 98%;
+  --card-foreground: 222 14% 10%;
+  --primary: 222 14% 10%;
   --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 14% 8%;
-  --accent: 210 40% 96%;
-  --accent-foreground: 222 14% 8%;
+  --secondary: 210 40% 94%;
+  --secondary-foreground: 222 14% 10%;
+  --accent: 217 91% 50%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
-  --destructive-foreground: 210 40% 98%;
-  --ring: 222 14% 8%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 222 14% 10%;
 }
 
 @layer base {
@@ -213,21 +213,32 @@
     backface-visibility: hidden;
   }
 
-  /* Optimized glass effects */
+  /* Improved glass effects with better contrast */
   .glass-effect {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     will-change: transform, opacity;
   }
 
   .glass-strong {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.20);
     will-change: transform, opacity;
+  }
+
+  /* Light mode glass effects */
+  .light .glass-effect {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.10);
+  }
+
+  .light .glass-strong {
+    background: rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.15);
   }
 
   /* Hover effects */

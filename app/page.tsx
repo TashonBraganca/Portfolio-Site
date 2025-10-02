@@ -7,17 +7,11 @@ import { Section } from '@/app/components/section'
 import { ProjectsList } from '@/app/components/projects/list'
 import { Skills } from '@/app/components/skills'
 import { About } from '@/app/components/about'
-import { Mission } from '@/app/components/mission'
 import { Resume } from '@/app/components/resume'
 import { Contact } from '@/app/components/contact'
 import { ASCIIEffects } from '@/app/components/ascii-effects'
-import { DynamicShowcase } from '@/app/components/dynamic-showcase'
 
 export default function HomePage() {
-  const scrollToSkills = () => {
-    const element = document.querySelector('#skills')
-    element?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -27,15 +21,7 @@ export default function HomePage() {
       <Header />
       
       <Hero />
-      
-      {/* Dynamic Showcase Section */}
-      <DynamicShowcase
-        title="Technology that understands"
-        subtitle="your vision"
-        description="Every project is a constellation of carefully chosen technologies, each one floating in perfect harmony with the others. Move your cursor to explore the ecosystem that powers modern development."
-        onExploreClick={scrollToSkills}
-      />
-      
+
       <Section
         id="projects"
         title="Projects"
@@ -43,7 +29,7 @@ export default function HomePage() {
       >
         <ProjectsList />
       </Section>
-      
+
       <Section
         id="skills"
         title="Skills & Technologies"
@@ -51,21 +37,13 @@ export default function HomePage() {
       >
         <Skills />
       </Section>
-      
+
       <Section
         id="about"
         title="About Me"
-        description="The human behind the code"
+        description="Get to know me"
       >
         <About />
-      </Section>
-      
-      <Section
-        id="mission"
-        title="Mission"
-        description="My driving purpose and core principles"
-      >
-        <Mission />
       </Section>
       
       <Section

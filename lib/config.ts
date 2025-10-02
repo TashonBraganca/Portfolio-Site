@@ -39,9 +39,9 @@ export const skills = [
 ]
 
 export const hero = {
-  name: 'Tashon',
-  title: 'Data Science Engineer, always executing',
-  subtitle: 'Data Science student & builder. I create ML systems, analyze complex data, and ship intelligent solutions fast.',
+  name: 'Tashon Braganca',
+  title: 'Data Scientist & ML Engineer',
+  subtitle: 'Building intelligent systems with machine learning, data analysis, and backend engineering.',
   cta: {
     primary: 'View Projects',
     secondary: 'GitHub'

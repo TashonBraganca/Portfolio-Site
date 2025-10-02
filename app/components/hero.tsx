@@ -30,16 +30,10 @@ const FloatingIcon = ({
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = React.useState(false)
-  const [currentWord, setCurrentWord] = React.useState(0)
-  const words = ['Data Scientist', 'ML Engineer', 'Problem Solver', 'System Builder']
 
   React.useEffect(() => {
     setIsLoaded(true)
-    const interval = setInterval(() => {
-      setCurrentWord(prev => (prev + 1) % words.length)
-    }, 2500)
-    return () => clearInterval(interval)
-  }, [words.length])
+  }, [])
 
   const scrollToProjects = () => {
     const element = document.querySelector('#projects')
@@ -66,26 +60,26 @@ export function Hero() {
         />
       </div>
       
-      {/* Floating elements - more sophisticated */}
-      <FloatingIcon className="top-20 left-20" delay={0} duration={12}>
-        <div className="w-20 h-20 border border-white/10 rounded-lg backdrop-blur-sm bg-white/5 flex items-center justify-center">
-          <Code className="w-8 h-8 text-white/40" />
+      {/* Floating elements - subtle and static */}
+      <div className="absolute top-20 left-20 opacity-5">
+        <div className="w-20 h-20 border border-white/20 rounded-lg">
+          <Code className="w-8 h-8 text-white/40 m-6" />
         </div>
-      </FloatingIcon>
-      
-      <FloatingIcon className="top-32 right-32" delay={2} duration={15}>
-        <div className="w-16 h-16 bg-gradient-to-br from-white/10 to-white/5 rounded-full backdrop-blur-sm flex items-center justify-center">
-          <Sparkles className="w-6 h-6 text-white/50" />
+      </div>
+
+      <div className="absolute top-32 right-32 opacity-5">
+        <div className="w-16 h-16 border border-white/20 rounded-full">
+          <Sparkles className="w-6 h-6 text-white/40 m-5" />
         </div>
-      </FloatingIcon>
-      
-      <FloatingIcon className="bottom-40 left-40" delay={4} duration={10}>
-        <div className="w-24 h-16 border-2 border-dashed border-white/10 rounded-xl backdrop-blur-sm bg-white/5" />
-      </FloatingIcon>
-      
-      <FloatingIcon className="bottom-32 right-20" delay={1} duration={14}>
-        <div className="w-12 h-12 bg-white/10 rotate-45 backdrop-blur-sm" />
-      </FloatingIcon>
+      </div>
+
+      <div className="absolute bottom-40 left-40 opacity-5">
+        <div className="w-24 h-16 border border-dashed border-white/20 rounded-xl" />
+      </div>
+
+      <div className="absolute bottom-32 right-20 opacity-5">
+        <div className="w-12 h-12 bg-white/10 rotate-45" />
+      </div>
 
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -97,64 +91,50 @@ export function Hero() {
 
           {/* Main Hero Content */}
           <div className="text-center space-y-8">
-            {/* Large typography like supermemory */}
+            {/* Clean, professional typography */}
             <div className="space-y-4">
               <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                <h1 className="text-6xl sm:text-8xl lg:text-9xl font-bold tracking-tight leading-none">
-                  <span className="block text-foreground min-h-[1.2em]">Your next</span>
-                  <span className="relative inline-block min-h-[1.2em]">
-                    <span className="bg-gradient-to-r from-accent via-accent/90 to-accent/70 bg-clip-text text-transparent transition-all duration-500">
-                      {words[currentWord]}
-                    </span>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 via-transparent to-transparent blur-xl -z-10" />
-                  </span>
+                <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-tight text-foreground">
+                  {hero.name}
                 </h1>
               </div>
-              
-              <div className={`transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                <h2 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-muted-foreground">
-                  always executing
+
+              <div className={`transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground/90">
+                  {hero.title}
                 </h2>
               </div>
             </div>
             
             {/* Subtitle */}
-            <div className={`transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-light">
+            <div className={`transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 {hero.subtitle}
               </p>
             </div>
 
             {/* CTA Buttons */}
-            <div className={`flex flex-col sm:flex-row gap-6 justify-center pt-8 transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <Button 
-                size="lg" 
+            <div className={`flex flex-col sm:flex-row gap-6 justify-center pt-8 transition-all duration-1000 delay-600 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <Button
+                size="lg"
                 onClick={scrollToProjects}
-                className="group bg-white text-black hover:bg-white/90 text-lg px-8 py-6 h-auto font-medium"
+                className="group bg-foreground text-background hover:bg-foreground/90 text-base px-8 py-6 h-auto font-medium"
               >
                 {hero.cta.primary}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg" 
+
+              <Button
+                variant="outline"
+                size="lg"
                 asChild
-                className="group border-white/20 hover:border-white/40 hover:bg-white/5 text-lg px-8 py-6 h-auto font-medium"
+                className="group border-border hover:border-foreground/40 hover:bg-foreground/5 text-base px-8 py-6 h-auto font-medium"
               >
                 <a href={links.github} target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2 h-5 w-5" />
                   {hero.cta.secondary}
                 </a>
               </Button>
-            </div>
-          </div>
-          
-          {/* Status indicator */}
-          <div className={`mt-20 text-center transition-all duration-1000 delay-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="inline-flex items-center space-x-3 text-sm text-muted-foreground bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-6 py-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span>Available for new opportunities</span>
             </div>
           </div>
         </div>
