@@ -93,25 +93,25 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-center">
 
-          {/* Centered Brain Visual */}
-          <div className="relative flex items-center justify-center" style={{ width: '500px', height: '500px' }}>
+          {/* Centered Brain Visual - 15% Smaller */}
+          <div className="relative flex items-center justify-center" style={{ width: '425px', height: '425px' }}>
             <div
               className="relative flex items-center justify-center"
               style={{
-                width: '400px',
-                height: '400px',
+                width: '340px',
+                height: '340px',
                 opacity: brainOpacity,
-                transform: `scale(${brainScale})`,
+                transform: `scale(${brainScale * 0.85})`,
                 overflow: 'visible'
               }}
             >
-              {/* Central Brain */}
+              {/* Central Brain - Stationary with Flickering */}
               <div className="relative w-40 h-40 flex items-center justify-center">
-                {/* Dot Matrix Brain */}
-                <div 
-                  className="relative w-32 h-32 gpu-accelerated"
+                {/* Dot Matrix Brain - No Rotation */}
+                <div
+                  className="relative w-32 h-32"
                   style={{
-                    transform: `rotateY(${scrollProgress * 360}deg) rotateX(${scrollProgress * 180}deg)`,
+                    transform: 'none',
                     transformStyle: 'preserve-3d'
                   }}
                 >
@@ -142,12 +142,13 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
                       return (
                         <div
                           key={i}
-                          className={`w-2 h-2 rounded-sm transition-all duration-300 ${
-                            isInBrainRegion ? 'bg-blue-400' : 'bg-transparent'
+                          className={`w-2 h-2 rounded-sm ${
+                            isInBrainRegion ? 'bg-blue-400 animate-pulse' : 'bg-transparent'
                           }`}
                           style={{
                             opacity,
                             animationDelay: `${delay}s`,
+                            animationDuration: `${1.5 + Math.random()}s`,
                             boxShadow: isInBrainRegion ? `0 0 4px rgba(59, 130, 246, ${opacity})` : 'none',
                             transform: `translateZ(${isFold ? '4px' : '0px'})`,
                           }}

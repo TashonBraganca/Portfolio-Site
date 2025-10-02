@@ -28,10 +28,7 @@ export default function HomePage() {
 
       <Hero />
 
-      {/* Rotating Brain Animation - Center Only */}
-      <ScrollBrain />
-
-      {/* Floating Technology Cards */}
+      {/* Floating Technology Cards with Rotating Brain */}
       <DynamicShowcase
         title="Technology Stack"
         subtitle="Built with modern tools"
