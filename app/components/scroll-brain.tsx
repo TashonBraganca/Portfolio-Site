@@ -89,12 +89,12 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
   const iconDistance = 120 + (scrollProgress * 40) // Icons move farther as you scroll
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-20" ref={brainRef}>
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-center">
+    <section className="relative min-h-[60vh] flex items-center justify-center py-12" ref={brainRef} style={{ overflow: 'visible' }}>
+      <div className="container mx-auto px-6" style={{ overflow: 'visible' }}>
+        <div className="flex items-center justify-center" style={{ overflow: 'visible' }}>
 
           {/* Centered Brain Visual - 15% Smaller */}
-          <div className="relative flex items-center justify-center" style={{ width: '425px', height: '425px' }}>
+          <div className="relative flex items-center justify-center" style={{ width: '500px', height: '500px', overflow: 'visible' }}>
             <div
               className="relative flex items-center justify-center"
               style={{
