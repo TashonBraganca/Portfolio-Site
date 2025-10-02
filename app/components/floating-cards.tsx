@@ -12,25 +12,9 @@ interface FloatingCardProps {
 }
 
 export function FloatingCard({ repo, index, style }: FloatingCardProps) {
-  const cardRef = React.useRef<HTMLDivElement>(null)
-  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = React.useState(false)
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return
-
-    const rect = cardRef.current.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-    
-    setMousePos({
-      x: (e.clientX - centerX) / 10,
-      y: (e.clientY - centerY) / 10
-    })
-  }
-
   const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 })
     setIsHovered(false)
   }
 
@@ -38,42 +22,21 @@ export function FloatingCard({ repo, index, style }: FloatingCardProps) {
     setIsHovered(true)
   }
 
-  const cardStyle: React.CSSProperties = {
-    ...style,
-    transform: `
-      perspective(1000px) 
-      rotateY(${mousePos.x}deg) 
-      rotateX(${-mousePos.y}deg) 
-      translateZ(${isHovered ? '20px' : '0px'})
-      scale(${isHovered ? '1.05' : '1'})
-    `,
-    transformStyle: 'preserve-3d',
-    transition: isHovered ? 'none' : 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-  }
-
   return (
     <div
-      ref={cardRef}
-      className="relative group cursor-pointer"
-      onMouseMove={handleMouseMove}
+      className="relative group cursor-pointer transition-all duration-300"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={cardStyle}
+      style={{
+        ...style,
+        transform: isHovered ? 'translateY(-4px) scale(1.02)' : 'translateY(0) scale(1)',
+      }}
     >
-      {/* Card shadow/depth */}
-      <div 
-        className="absolute inset-0 bg-black/50 rounded-xl"
-        style={{
-          transform: 'translateZ(-10px)',
-          filter: 'blur(20px)'
-        }}
-      />
-      
       {/* Main card */}
-      <div className="relative bg-card border border-border/50 rounded-xl p-6 backdrop-blur-sm overflow-hidden">
+      <div className="relative bg-card border border-border/50 rounded-xl p-6 backdrop-blur-sm overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
         {/* Gradient overlay on hover */}
-        <div 
-          className={`absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-xl transition-opacity duration-300 ${
+        <div
+          className={`absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-xl transition-opacity duration-300 ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -158,50 +121,16 @@ export function FloatingCard({ repo, index, style }: FloatingCardProps) {
 }
 
 export function FloatingProjectsGrid({ repos }: { repos: Repository[] }) {
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 })
-
-  React.useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return
-      
-      const rect = containerRef.current.getBoundingClientRect()
-      setMousePos({
-        x: (e.clientX - rect.left) / rect.width,
-        y: (e.clientY - rect.top) / rect.height
-      })
-    }
-
-    const container = containerRef.current
-    if (container) {
-      container.addEventListener('mousemove', handleMouseMove)
-      return () => container.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [])
-
   return (
-    <div ref={containerRef} className="relative">
+    <div className="relative">
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {repos.slice(0, 6).map((repo, index) => {
-          // Create floating positions based on index and mouse
-          const baseX = (index % 3) * 20 - 20
-          const baseY = Math.floor(index / 3) * 15 - 10
-          const parallaxX = (mousePos.x - 0.5) * baseX * 0.5
-          const parallaxY = (mousePos.y - 0.5) * baseY * 0.5
-
-          return (
-            <FloatingCard
-              key={repo.name}
-              repo={repo}
-              index={index}
-              style={{
-                animationDelay: `${index * 200}ms`,
-                transform: `translate(${parallaxX}px, ${parallaxY}px)`,
-                transition: 'transform 0.3s ease-out'
-              }}
-            />
-          )
-        })}
+        {repos.slice(0, 9).map((repo, index) => (
+          <FloatingCard
+            key={repo.name}
+            repo={repo}
+            index={index}
+          />
+        ))}
       </div>
     </div>
   )
