@@ -91,66 +91,18 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center py-20" ref={brainRef}>
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          {/* Left Content */}
-          <div 
-            className="space-y-8"
-            style={{
-              opacity: contentOpacity,
-              transform: `translateX(${(1 - contentOpacity) * -50}px)`
-            }}
-          >
-            <div className="space-y-6">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="block text-foreground">Your second brain,</span>
-                <span className="block text-foreground">always within reach</span>
-              </h2>
-              
-              <div className="space-y-6 text-lg max-w-2xl">
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5 flex-shrink-0">
-                    <div className="w-2 h-2 rounded-full bg-blue-400" />
-                  </div>
-                  <div>
-                    <p className="text-foreground leading-relaxed">
-                      <strong className="text-blue-400">AI-powered intelligence</strong> bridges the gaps between your favorite apps, so your memories stay in sync — no matter where you work.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center mt-0.5 flex-shrink-0">
-                    <div className="w-2 h-2 rounded-full bg-purple-400" />
-                  </div>
-                  <div>
-                    <p className="text-foreground leading-relaxed">
-                      <strong className="text-purple-400">Machine learning models</strong> capture everything — ideas, files, links, thoughts — and makes it all accessible when you need it most.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mt-0.5 flex-shrink-0">
-                    <div className="w-2 h-2 rounded-full bg-green-400" />
-                  </div>
-                  <div>
-                    <p className="text-foreground leading-relaxed">
-                      <strong className="text-green-400">Intelligent automation</strong> works wherever you write, browse, or build — quietly remembering, connecting, and surfacing what matters most.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Right Brain Visual */}
-          <div className="relative flex items-center justify-center">
-            <div 
-              className="relative w-80 h-80 flex items-center justify-center"
+        <div className="flex items-center justify-center">
+
+          {/* Centered Brain Visual */}
+          <div className="relative flex items-center justify-center" style={{ width: '500px', height: '500px' }}>
+            <div
+              className="relative flex items-center justify-center"
               style={{
+                width: '400px',
+                height: '400px',
                 opacity: brainOpacity,
-                transform: `scale(${brainScale})`
+                transform: `scale(${brainScale})`,
+                overflow: 'visible'
               }}
             >
               {/* Central Brain */}
@@ -232,13 +184,17 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
                 </div>
               </div>
               
-              {/* Orbiting Icons */}
-              <div 
-                className="absolute inset-0 gpu-accelerated"
+              {/* Orbiting Icons - Fixed Circular Motion */}
+              <div
+                className="absolute gpu-accelerated"
                 style={{
+                  width: '100%',
+                  height: '100%',
                   transform: `rotate(${iconsRotation}deg)`,
-                  transformOrigin: 'center',
-                  opacity: iconsOpacity
+                  transformOrigin: 'center center',
+                  opacity: iconsOpacity,
+                  left: 0,
+                  top: 0
                 }}
               >
                 {AI_ML_ICONS.map(({ Icon, label, color }, index) => {
@@ -246,27 +202,27 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
                   const radius = iconDistance // Dynamic radius based on scroll
                   const x = Math.cos((angle * Math.PI) / 180) * radius
                   const y = Math.sin((angle * Math.PI) / 180) * radius
-                  
+
                   return (
                     <div
                       key={label}
                       className="absolute w-12 h-12 flex items-center justify-center rounded-xl glass-effect hover:scale-110 transition-all duration-300 group cursor-pointer"
                       style={{
-                        left: `calc(50% + ${x}px - 24px)`,
-                        top: `calc(50% + ${y}px - 24px)`,
-                        transform: `rotate(${-iconsRotation}deg)`, // Counter-rotate to keep icons upright
+                        left: '50%',
+                        top: '50%',
+                        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${-iconsRotation}deg)`,
                         backgroundColor: `${color}15`,
                         border: `1px solid ${color}30`
                       }}
                       title={label}
                     >
-                      <Icon 
-                        className="w-6 h-6 transition-colors duration-300" 
+                      <Icon
+                        className="w-6 h-6 transition-colors duration-300"
                         style={{ color }}
                       />
-                      
+
                       {/* Tooltip */}
-                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
                         {label}
                       </div>
                     </div>
@@ -304,34 +260,6 @@ export function ScrollBrain({ children }: ScrollBrainProps) {
         )}
       </div>
       
-      {/* Explore Technologies Button at Bottom */}
-      <div 
-        className="text-center py-12 transition-all duration-1000"
-        style={{
-          opacity: scrollProgress > 0.6 ? 1 : 0,
-          transform: `translateY(${scrollProgress > 0.6 ? 0 : 30}px)`
-        }}
-      >
-        <Button 
-          size="lg" 
-          onClick={() => {
-            const element = document.querySelector('#skills')
-            element?.scrollIntoView({ behavior: 'smooth' })
-          }}
-          className="group bg-white text-black hover:bg-white/90 text-lg px-8 py-6 h-auto font-medium"
-        >
-          <Code className="mr-2 h-5 w-5" />
-          Explore Technologies
-          <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-        </Button>
-      </div>
-      
-      {/* Additional content that appears after animation */}
-      {children && (
-        <div className="mt-20">
-          {children}
-        </div>
-      )}
     </section>
   )
 }

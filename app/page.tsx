@@ -10,6 +10,7 @@ import { About } from '@/app/components/about'
 import { Resume } from '@/app/components/resume'
 import { Contact } from '@/app/components/contact'
 import { ASCIIEffects } from '@/app/components/ascii-effects'
+import { ScrollBrain } from '@/app/components/scroll-brain'
 import { DynamicShowcase } from '@/app/components/dynamic-showcase'
 
 export default function HomePage() {
@@ -27,7 +28,10 @@ export default function HomePage() {
 
       <Hero />
 
-      {/* Dynamic Showcase with Floating Ecosystem */}
+      {/* Rotating Brain Animation - Center Only */}
+      <ScrollBrain />
+
+      {/* Floating Technology Cards */}
       <DynamicShowcase
         title="Technology Stack"
         subtitle="Built with modern tools"
